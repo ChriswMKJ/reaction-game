@@ -1,0 +1,42 @@
+[
+  {
+    "location_id": "UH",
+    "name": "XXXLutz Moebelhaus Fulda",
+    "type": "moebelhaus",
+    "button_id": 1,
+    "image": "Fulda.jpg",
+    "active": true
+  },
+  {
+    "location_id": "GT",
+    "name": "XXXLutz Moebelhaus Goslar",
+    "type": "moebelhaus",
+    "button_id": 2,
+    "image": "Goslar.jpg",
+    "active": true
+  },
+  {
+    "location_id": "NH",
+    "name": "XXXLutz Moebelhaus Hirschaid",
+    "type": "moebelhaus",
+    "button_id": 3,
+    "image": "Hirschaid.jpg",
+    "active": true
+  },
+  {
+    "location_id": "NW",
+    "name": "XXXLutz Moebelhaus Wuerzburg",
+    "type": "moebelhaus",
+    "button_id": 4,
+    "image": "Wuerzburg.jpg",
+    "active": true
+  },
+  {
+    "location_id": "ZZ",
+    "name": "Deutschlandzentrale Wuerzburg",
+    "type": "zentrale",
+    "button_id": 4,
+    "image": "Zentrale.jpg",
+    "active": true
+  }
+]
