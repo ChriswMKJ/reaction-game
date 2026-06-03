@@ -1,4 +1,4 @@
-const int B1 = 18;
+const int BTN1_PIN = 18;
 const unsigned long DEBOUNCE_MS = 20;
 
 bool stable = HIGH;          // HIGH = losgelassen, LOW = gedrückt
@@ -7,13 +7,13 @@ unsigned long tChange = 0;
 
 void setup() {
   Serial.begin(115200);
-  pinMode(B1, INPUT_PULLUP);
+  pinMode(BTN1_PIN, INPUT_PULLUP);
   delay(200);
   Serial.println("READY");
 }
 
 void loop() {
-  bool r = digitalRead(B1);
+  bool r = digitalRead(BTN1_PIN);
   unsigned long now = millis();
 
   if (r != lastRead) {
