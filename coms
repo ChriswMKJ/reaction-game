@@ -8,3 +8,35 @@
 command -v pio; pio --version 2>/dev/null || true
 command -v arduino-cli; arduino-cli version 2>/dev/null || true
 command -v idf.py; idf.py --version 2>/dev/null || true
+
+#include <Arduino.h>
+
+static const int B1 = 18;
+static const unsigned long DEBOUNCE_MS = 20;
+
+static bool stable = HIGH;          // HIGH = losgelassen, LOW = gedrückt
+static bool lastRead = HIGH;
+static unsigned long tChange = 0;
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(B1, INPUT_PULLUP);
+  delay(200);
+  Serial.println("READY");
+}
+
+void loop() {
+  bool r = digitalRead(B1);
+  unsigned long now = millis();
+
+  if (r != lastRead) {
+    lastRead = r;
+    tChange = now;
+  }
+
+  if ((now - tChange) > DEBOUNCE_MS && r != stable) {
+    stable = r;
+    if (stable == LOW) Serial.println("B1_DOWN");
+    else               Serial.println("B1_UP");
+  }
+}
