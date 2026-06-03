@@ -40,3 +40,32 @@ void loop() {
     else               Serial.println("B1_UP");
   }
 }
+
+
+(venv-pio) cze@XLDE-Reaction:~/reaction-proto-esp32 $ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+udev            325M     0  325M   0% /dev
+tmpfs           185M  4.1M  181M   3% /run
+/dev/mmcblk0p2  6.8G  6.3G  177M  98% /
+tmpfs           461M  504K  461M   1% /dev/shm
+tmpfs           5.0M   12K  5.0M   1% /run/lock
+tmpfs           1.0M     0  1.0M   0% /run/credentials/systemd-journald.service
+tmpfs           461M  4.0K  461M   1% /tmp
+/dev/mmcblk0p1  505M   97M  408M  20% /boot/firmware
+tmpfs            93M   64K   93M   1% /run/user/1000
+tmpfs           1.0M     0  1.0M   0% /run/credentials/serial-getty@ttyAMA0.service
+tmpfs           1.0M     0  1.0M   0% /run/credentials/getty@tty1.service
+(venv-pio) cze@XLDE-Reaction:~/reaction-proto-esp32 $ df -i
+Filesystem      Inodes  IUsed   IFree IUse% Mounted on
+udev             82975    506   82469    1% /dev
+tmpfs           117890    929  116961    1% /run
+/dev/mmcblk0p2  455168 148402  306766   33% /
+tmpfs           117890     15  117875    1% /dev/shm
+tmpfs           117890      5  117885    1% /run/lock
+tmpfs             1024      1    1023    1% /run/credentials/systemd-journald.service
+tmpfs          1048576     15 1048561    1% /tmp
+/dev/mmcblk0p1       0      0       0     - /boot/firmware
+tmpfs            23578    108   23470    1% /run/user/1000
+tmpfs             1024      1    1023    1% /run/credentials/serial-getty@ttyAMA0.service
+tmpfs             1024      1    1023    1% /run/credentials/getty@tty1.service
+(venv-pio) cze@XLDE-Reaction:~/reaction-proto-esp32 $ 
