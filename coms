@@ -78,10 +78,14 @@ drwxrwxr-x 3 cze cze 4096 Jun  3 11:30 libexec
 drwxrwxr-x 6 cze cze 4096 Jun  3 11:30 share
 drwxrwxr-x 6 cze cze 4096 Jun  3 11:31 xtensa-esp32-elf
 
-
-
 (venv-pio) cze@XLDE-Reaction:~/reaction-proto-esp32 $ source ~/venv-pio/bin/activate
-(venv-pio) cze@XLDE-Reaction:~/reaction-proto-esp32 $ ls -l ~/.platformio/packages/toolchain-xtensa-esp32/bin | grep xtensa-esp32-elf-g++
--rwxr-xr-x 1 cze cze  778104 Sep 16  2022 xtensa-esp32-elf-g++
+(venv-pio) cze@XLDE-Reaction:~/reaction-proto-esp32 $ uname -m
+armv7l
+(venv-pio) cze@XLDE-Reaction:~/reaction-proto-esp32 $ file ~/.platformio/packages/toolchain-xtensa-esp32/bin/xtensa-esp32-elf-g++
+/home/cze/.platformio/packages/toolchain-xtensa-esp32/bin/xtensa-esp32-elf-g++: ELF 32-bit LSB executable, ARM, EABI5 version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux.so.3, for GNU/Linux 3.2.0, BuildID[sha1]=d80d264c42b092c58ad16f1f1f454d13664e109a, stripped
+(venv-pio) cze@XLDE-Reaction:~/reaction-proto-esp32 $ ~/.platformio/packages/toolchain-xtensa-esp32/bin/xtensa-esp32-elf-g++ --version echo "exit=$?"
+bash: /home/cze/.platformio/packages/toolchain-xtensa-esp32/bin/xtensa-esp32-elf-g++: cannot execute: required file not found
+(venv-pio) cze@XLDE-Reaction:~/reaction-proto-esp32 $ 
+
 (venv-pio) cze@XLDE-Reaction:~/reaction-proto-esp32 $ ls -l ~/.platformio/packages/toolchain-xtensa-esp32/bin/xtensa-esp32-elf-g++ || true
 -rwxr-xr-x 1 cze cze 778104 Sep 16  2022 /home/cze/.platformio/packages/toolchain-xtensa-esp32/bin/xtensa-esp32-elf-g++
