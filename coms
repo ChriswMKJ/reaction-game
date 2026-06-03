@@ -1,80 +1,32 @@
+sudo apt update
+sudo apt install -y gnupg ca-certificates
 
+sudo mkdir -p /etc/apt/keyrings
 
-#include <Arduino.h>
+for fp in \
+  4CB50190207B4758A3F73A796ED0E7B82643E131 \
+  B8E5F13176D2A7A75220028078DBA3BC47EF2265 \
+  41587F7DB8C774BCCF131416762F67A0B2C39DE4
+do
+  sudo gpg --no-default-keyring \
+    --keyring /etc/apt/keyrings/debian-trixie.gpg \
+    --keyserver hkps://keyserver.ubuntu.com \
+    --recv-keys "$fp"
+done
 
-static const int B1 = 18;
-static const unsigned long DEBOUNCE_MS = 20;
+sudo tee /etc/apt/sources.list.d/debian-armel.list >/dev/null <<'EOF'
+deb [arch=armel signed-by=/etc/apt/keyrings/debian-trixie.gpg] https://deb.debian.org/debian trixie main
+deb [arch=armel signed-by=/etc/apt/keyrings/debian-trixie.gpg] https://deb.debian.org/debian trixie-updates main
+EOF
 
-static bool stable = HIGH;          // HIGH = losgelassen, LOW = gedrückt
-static bool lastRead = HIGH;
-static unsigned long tChange = 0;
+sudo apt update
+apt-cache policy libc6:armel | sed -n '1,80p'
+sudo apt install -y --no-install-recommends libc6:armel
+ls -l /lib/ld-linux.so.3
 
-void setup() {
-  Serial.begin(115200);
-  pinMode(B1, INPUT_PULLUP);
-  delay(200);
-  Serial.println("READY");
-}
+~/.platformio/packages/toolchain-xtensa-esp32/bin/xtensa-esp32-elf-g++ --version
 
-void loop() {
-  bool r = digitalRead(B1);
-  unsigned long now = millis();
+source ~/venv-pio/bin/activate
+cd ~/reaction-proto-esp32
+pio run
 
-  if (r != lastRead) {
-    lastRead = r;
-    tChange = now;
-  }
-
-  if ((now - tChange) > DEBOUNCE_MS && r != stable) {
-    stable = r;
-    if (stable == LOW) Serial.println("B1_DOWN");
-    else               Serial.println("B1_UP");
-  }
-}
-
-(venv-pio) cze@XLDE-Reaction:~/reaction-proto-esp32 $ ls -la ~/.platformio
-lrwxrwxrwx 1 cze cze 24 Jun  3 11:27 /home/cze/.platformio -> /mnt/piostick/platformio
-(venv-pio) cze@XLDE-Reaction:~/reaction-proto-esp32 $ ls -la ~/.platformio.bak
-total 24
-drwxrwxr-x  5 cze cze 4096 Jun  3 10:33 .
-drwx------ 17 cze cze 4096 Jun  3 11:27 ..
--rw-rw-r--  1 cze cze   99 Jun  3 10:33 appstate.json
-drwxrwxr-x  5 cze cze 4096 Jun  3 10:32 .cache
-drwxrwxr-x  3 cze cze 4096 Jun  3 10:17 packages
-drwxrwxr-x  3 cze cze 4096 Jun  3 10:15 platforms
-(venv-pio) cze@XLDE-Reaction:~/reaction-proto-esp32 $ rm -rf ~/.platformio.bak
-(venv-pio) cze@XLDE-Reaction:~/reaction-proto-esp32 $ df -h /
-Filesystem      Size  Used Avail Use% Mounted on
-/dev/mmcblk0p2  6.8G  5.1G  1.3G  80% /
-(venv-pio) cze@XLDE-Reaction:~/reaction-proto-esp32 $ sudo apt install -y debian-archive-keyring
-Note, selecting 'raspbian-archive-keyring' instead of 'debian-archive-keyring'
-raspbian-archive-keyring is already the newest version (20120528.4).
-Summary:
-  Upgrading: 0, Installing: 0, Removing: 0, Not Upgrading: 0
-(venv-pio) cze@XLDE-Reaction:~/reaction-proto-esp32 $ sudo apt update
-Get:1 http://archive.raspberrypi.com/debian trixie InRelease [54.9 kB]
-Get:2 http://raspbian.raspberrypi.com/raspbian trixie InRelease [15.0 kB]      
-Get:3 https://deb.debian.org/debian trixie InRelease [140 kB]                  
-Get:4 http://raspbian.raspberrypi.com/raspbian trixie/main armhf Packages [15.7 MB]
-Get:5 http://archive.raspberrypi.com/debian trixie/main armhf Packages [446 kB]
-Get:6 https://deb.debian.org/debian trixie-updates InRelease [47.3 kB]         
-Err:3 https://deb.debian.org/debian trixie InRelease                           
-  Sub-process /usr/bin/sqv returned an error code (1), error message is: Missing key 4CB50190207B4758A3F73A796ED0E7B82643E131, which is needed to verify signature. Missing key B8E5F13176D2A7A75220028078DBA3BC47EF2265, which is needed to verify signature. Missing key 41587F7DB8C774BCCF131416762F67A0B2C39DE4, which is needed to verify signature.
-Get:7 http://archive.raspberrypi.com/debian trixie/main arm64 Packages [452 kB]
-Err:6 https://deb.debian.org/debian trixie-updates InRelease                   
-  Sub-process /usr/bin/sqv returned an error code (1), error message is: Missing key 4CB50190207B4758A3F73A796ED0E7B82643E131, which is needed to verify signature. Missing key B8E5F13176D2A7A75220028078DBA3BC47EF2265, which is needed to verify signature.
-Get:8 http://raspbian.raspberrypi.com/raspbian trixie/contrib armhf Packages [65.1 kB]
-Get:9 http://raspbian.raspberrypi.com/raspbian trixie/non-free armhf Packages [122 kB]
-Get:10 http://raspbian.raspberrypi.com/raspbian trixie/rpi armhf Packages [592 B]
-Notice: Skipping acquire of configured file 'main/binary-armel/Packages' as repository 'http://archive.raspberrypi.com/debian trixie InRelease' doesn't support architecture 'armel'
-Warning: OpenPGP signature verification failed: https://deb.debian.org/debian trixie InRelease: Sub-process /usr/bin/sqv returned an error code (1), error message is: Missing key 4CB50190207B4758A3F73A796ED0E7B82643E131, which is needed to verify signature. Missing key B8E5F13176D2A7A75220028078DBA3BC47EF2265, which is needed to verify signature. Missing key 41587F7DB8C774BCCF131416762F67A0B2C39DE4, which is needed to verify signature.
-Error: The repository 'https://deb.debian.org/debian trixie InRelease' is not signed.
-Notice: Updating from such a repository can't be done securely, and is therefore disabled by default.
-Notice: See apt-secure(8) manpage for repository creation and user configuration details.
-Warning: OpenPGP signature verification failed: https://deb.debian.org/debian trixie-updates InRelease: Sub-process /usr/bin/sqv returned an error code (1), error message is: Missing key 4CB50190207B4758A3F73A796ED0E7B82643E131, which is needed to verify signature. Missing key B8E5F13176D2A7A75220028078DBA3BC47EF2265, which is needed to verify signature.
-Error: The repository 'https://deb.debian.org/debian trixie-updates InRelease' is not signed.
-Notice: Updating from such a repository can't be done securely, and is therefore disabled by default.
-Notice: See apt-secure(8) manpage for repository creation and user configuration details.
-(venv-pio) cze@XLDE-Reaction:~/reaction-proto-esp32 $ sudo apt install -y --no-install-recommends libc6:armel
-Error: Unable to locate package libc6:armel
-(venv-pio) cze@XLDE-Reaction:~/reaction-proto-esp32 $
