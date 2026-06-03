@@ -32,4 +32,28 @@ void loop() {
   }
 }
 
+Compiling .pio/build/esp32dev/src/main.cpp.o
+sh: 1: xtensa-esp32-elf-g++: not found
+Building .pio/build/esp32dev/bootloader.bin
+*** [.pio/build/esp32dev/src/main.cpp.o] Error 127
+esptool.py v4.11.0
+Creating esp32 image...
+Merged 1 ELF section
+Successfully created esp32 image.
+======================== [FAILED] Took 1054.96 seconds ========================
+(venv-pio) cze@XLDE-Reaction:~/reaction-proto-esp32 $ source ~/venv-pio/bin/activate
+(venv-pio) cze@XLDE-Reaction:~/reaction-proto-esp32 $ which pio
+/home/cze/venv-pio/bin/pio
+(venv-pio) cze@XLDE-Reaction:~/reaction-proto-esp32 $ pio --version
+PlatformIO Core, version 6.1.19
+(venv-pio) cze@XLDE-Reaction:~/reaction-proto-esp32 $ ls -l ~/.platformio/packages/toolchain-xtensa-esp32
+total 24
+drwxrwxr-x 2 cze cze 4096 Jun  3 11:30 bin
+drwxrwxr-x 4 cze cze 4096 Jun  3 11:30 lib
+drwxrwxr-x 3 cze cze 4096 Jun  3 11:30 libexec
+-rw-r--r-- 1 cze cze  485 Sep 20  2022 package.json
+drwxrwxr-x 6 cze cze 4096 Jun  3 11:30 share
+drwxrwxr-x 6 cze cze 4096 Jun  3 11:31 xtensa-esp32-elf
+
+
 
