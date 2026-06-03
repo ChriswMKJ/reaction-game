@@ -4,3 +4,7 @@
 [  122.906862] usbserial: USB Serial support registered for cp210x
 [  122.907134] cp210x 1-1.5:1.0: cp210x converter detected
 [  122.912082] usb 1-1.5: cp210x converter now attached to ttyUSB0
+
+command -v pio; pio --version 2>/dev/null || true
+command -v arduino-cli; arduino-cli version 2>/dev/null || true
+command -v idf.py; idf.py --version 2>/dev/null || true
