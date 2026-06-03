@@ -98,3 +98,34 @@ bash: /home/cze/.platformio/packages/toolchain-xtensa-esp32/bin/xtensa-esp32-elf
 (venv-pio) cze@XLDE-Reaction:~/reaction-proto-esp32 $ 
 
 
+(venv-pio) cze@XLDE-Reaction:~/reaction-proto-esp32 $ sudo du -xh /var |sort -h |tail -n 30
+44K	/var/lib/ucf
+48K	/var/cache/man/pt
+48K	/var/lib/dpkg/triggers
+52K	/var/cache/man/de
+52K	/var/cache/man/fr
+52K	/var/lib/upower
+68K	/var/log/apt
+76K	/var/cache/ldconfig
+92K	/var/lib/cloud/instances/rpi-imager-1778495283253/sem
+108K	/var/lib/systemd/deb-systemd-user-helper-enabled
+156K	/var/lib/cloud/instances/rpi-imager-1778495283253
+160K	/var/lib/cloud/instances
+196K	/var/lib/dpkg/alternatives
+236K	/var/lib/cloud
+236K	/var/lib/systemd/catalog
+296K	/var/lib/systemd/deb-systemd-helper-enabled
+440K	/var/cache/fontconfig
+620K	/var/log
+700K	/var/lib/systemd
+1.9M	/var/cache/man
+2.0M	/var/backups
+2.2M	/var/cache/debconf
+4.2M	/var/lib/aspell
+4.7M	/var/cache
+55M	/var/lib/dpkg/info
+58M	/var/lib/dpkg
+84M	/var/lib/apt/lists
+87M	/var/lib/apt
+150M	/var/lib
+1.1G	/var
