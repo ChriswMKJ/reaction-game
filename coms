@@ -1,0 +1,6 @@
+[  122.741127] usb 1-1.5: Product: CP2102 USB to UART Bridge Controller
+[  122.888097] usbserial: USB Serial support registered for generic
+[  122.906664] usbcore: registered new interface driver cp210x
+[  122.906862] usbserial: USB Serial support registered for cp210x
+[  122.907134] cp210x 1-1.5:1.0: cp210x converter detected
+[  122.912082] usb 1-1.5: cp210x converter now attached to ttyUSB0
