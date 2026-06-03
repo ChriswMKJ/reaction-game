@@ -35,3 +35,18 @@ See `man xcode-select` for more details.
 exit status 1
 
 Compilation error: exit status 1
+(venv-pio) cze@XLDE-Reaction:~/reaction-proto-esp32 $ python3 - <<'PY'
+import serial
+ser = serial.Sserial('/dev/ttyUSB0', 115200, timeout=1)
+print("listening on /dev/ttyUTSB0 ...")
+
+while True: 
+line = ser.readline().decode(errors='ignore').strip()
+if line: 
+print(line)
+PY
+  File "<stdin>", line 6
+    line = ser.readline().decode(errors='ignore').strip()
+    ^^^^
+IndentationError: expected an indented block after 'while' statement on line 5
+(venv-pio) cze@XLDE-Reaction:~/reaction-proto-esp32 $ 
