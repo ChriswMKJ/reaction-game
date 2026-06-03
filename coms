@@ -1,90 +1,31 @@
-sudo apt update
-sudo apt install -y gnupg ca-certificates
+sudo rm -f /etc/apt/keyrings/debian-trixie.gpg
+sudo rm -f /etc/apt/keyrings/debian-trixie.gpg~
 
+ls -l /etc/apt/keyrings/debian-trixie.gpg || true
+
+sudo mkdir -p /root/.gnupg
+sudo chmod 700 /root/.gnupg
 sudo mkdir -p /etc/apt/keyrings
 
-for fp in \
+sudo gpg --homedir /root/.gnupg --keyserver hkps://keyserver.ubuntu.com --recv-keys \
   4CB50190207B4758A3F73A796ED0E7B82643E131 \
   B8E5F13176D2A7A75220028078DBA3BC47EF2265 \
   41587F7DB8C774BCCF131416762F67A0B2C39DE4
-do
-  sudo gpg --no-default-keyring \
-    --keyring /etc/apt/keyrings/debian-trixie.gpg \
-    --keyserver hkps://keyserver.ubuntu.com \
-    --recv-keys "$fp"
-done
 
-sudo tee /etc/apt/sources.list.d/debian-armel.list >/dev/null <<'EOF'
-deb [arch=armel signed-by=/etc/apt/keyrings/debian-trixie.gpg] https://deb.debian.org/debian trixie main
-deb [arch=armel signed-by=/etc/apt/keyrings/debian-trixie.gpg] https://deb.debian.org/debian trixie-updates main
-EOF
+sudo gpg --homedir /root/.gnupg --export \
+  4CB50190207B4758A3F73A796ED0E7B82643E131 \
+  B8E5F13176D2A7A75220028078DBA3BC47EF2265 \
+  41587F7DB8C774BCCF131416762F67A0B2C39DE4 \
+| sudo gpg --dearmor -o /etc/apt/keyrings/debian-trixie.gpg
+
+sudo ls -l /etc/apt/keyrings/debian-trixie.gpg
 
 sudo apt update
+
 apt-cache policy libc6:armel | sed -n '1,80p'
 sudo apt install -y --no-install-recommends libc6:armel
 ls -l /lib/ld-linux.so.3
 
-~/.platformio/packages/toolchain-xtensa-esp32/bin/xtensa-esp32-elf-g++ --version
-
 source ~/venv-pio/bin/activate
 cd ~/reaction-proto-esp32
 pio run
-
-env-pio) cze@XLDE-Reaction:~/reaction-proto-esp32 $ for fp in \
-  4CB50190207B4758A3F73A796ED0E7B82643E131 \
-  B8E5F13176D2A7A75220028078DBA3BC47EF2265 \
-  41587F7DB8C774BCCF131416762F67A0B2C39DE4
-do
-  sudo gpg --no-default-keyring \
-    --keyring /etc/apt/keyrings/debian-trixie.gpg \
-    --keyserver hkps://keyserver.ubuntu.com \
-    --recv-keys "$fp"
-done
-gpg: keybox '/etc/apt/keyrings/debian-trixie.gpg' created
-gpg: failed to create temporary file '/root/.gnupg/.#lk0x00a5b048.XLDE-Reaction.3434': No such file or directory
-gpg: can't connect to the dirmngr: No such file or directory
-gpg: keyserver receive failed: No dirmngr
-gpg: failed to create temporary file '/root/.gnupg/.#lk0x00a77510.XLDE-Reaction.3438': No such file or directory
-gpg: can't connect to the dirmngr: No such file or directory
-gpg: keyserver receive failed: No dirmngr
-gpg: failed to create temporary file '/root/.gnupg/.#lk0x00925510.XLDE-Reaction.3442': No such file or directory
-gpg: can't connect to the dirmngr: No such file or directory
-gpg: keyserver receive failed: No dirmngr
-
-
-(venv-pio) cze@XLDE-Reaction:~/reaction-proto-esp32 $ for fp in   4CB50190207B4758A3F73A796ED0E7B82643E131   B8E5F13176D2A7A75220028078DBA3BC47EF2265   41587F7DB8C774BCCF131416762F67A0B2C39DE4; do   sudo gpg --no-default-keyring     --keyring /etc/apt/keyrings/debian-trixie.gpg     --keyserver hkps://keyserver.ubuntu.com     --recv-keys "$fp"; done
-gpg: /root/.gnupg/trustdb.gpg: trustdb created
-gpg: key B7C5D7D6350947F8: public key "Debian Archive Automatic Signing Key (12/bookworm) <ftpmaster@debian.org>" imported
-gpg: Total number processed: 1
-gpg:               imported: 1
-gpg: key 225629DF75B188BD: public key "Debian Archive Automatic Signing Key (13/trixie) <ftpmaster@debian.org>" imported
-gpg: Total number processed: 1
-gpg:               imported: 1
-gpg: key 762F67A0B2C39DE4: public key "Debian Stable Release Key (13/trixie) <debian-release@lists.debian.org>" imported
-gpg: Total number processed: 1
-gpg:               imported: 1
-(venv-pio) cze@XLDE-Reaction:~/reaction-proto-esp32 $ ^C
-(venv-pio) cze@XLDE-Reaction:~/reaction-proto-esp32 $ sudo tee /etc/apt/sources.list.d/debian-armel.list >/dev/null <<'EOF'
-deb [arch=armel signed-by=/etc/apt/keyrings/debian-trixie.gpg] https://deb.debian.org/debian trixie main
-deb [arch=armel signed-by=/etc/apt/keyrings/debian-trixie.gpg] https://deb.debian.org/debian trixie-updates main
-EOF
-(venv-pio) cze@XLDE-Reaction:~/reaction-proto-esp32 $ sudo apt update
-Hit:1 http://raspbian.raspberrypi.com/raspbian trixie InRelease
-Hit:2 http://archive.raspberrypi.com/debian trixie InRelease                  
-Get:3 https://deb.debian.org/debian trixie InRelease [140 kB]                 
-Get:4 https://deb.debian.org/debian trixie-updates InRelease [47.3 kB]
-Err:3 https://deb.debian.org/debian trixie InRelease
-  Sub-process /usr/bin/sqv returned an error code (1), error message is: Error: Failed to parse keyring "/etc/apt/keyrings/debian-trixie.gpg"  Caused by:     0: Reading "/etc/apt/keyrings/debian-trixie.gpg": EOF     1: EOF
-Err:4 https://deb.debian.org/debian trixie-updates InRelease
-  Sub-process /usr/bin/sqv returned an error code (1), error message is: Error: Failed to parse keyring "/etc/apt/keyrings/debian-trixie.gpg"  Caused by:     0: Reading "/etc/apt/keyrings/debian-trixie.gpg": EOF     1: EOF
-Notice: Skipping acquire of configured file 'main/binary-armel/Packages' as repository 'http://archive.raspberrypi.com/debian trixie InRelease' doesn't support architecture 'armel'
-Warning: OpenPGP signature verification failed: https://deb.debian.org/debian trixie InRelease: Sub-process /usr/bin/sqv returned an error code (1), error message is: Error: Failed to parse keyring "/etc/apt/keyrings/debian-trixie.gpg"  Caused by:     0: Reading "/etc/apt/keyrings/debian-trixie.gpg": EOF     1: EOF
-Error: The repository 'https://deb.debian.org/debian trixie InRelease' is not signed.
-Notice: Updating from such a repository can't be done securely, and is therefore disabled by default.
-Notice: See apt-secure(8) manpage for repository creation and user configuration details.
-Warning: OpenPGP signature verification failed: https://deb.debian.org/debian trixie-updates InRelease: Sub-process /usr/bin/sqv returned an error code (1), error message is: Error: Failed to parse keyring "/etc/apt/keyrings/debian-trixie.gpg"  Caused by:     0: Reading "/etc/apt/keyrings/debian-trixie.gpg": EOF     1: EOF
-Error: The repository 'https://deb.debian.org/debian trixie-updates InRelease' is not signed.
-Notice: Updating from such a repository can't be done securely, and is therefore disabled by default.
-Notice: See apt-secure(8) manpage for repository creation and user configuration details.
-(venv-pio) cze@XLDE-Reaction:~/reaction-proto-esp32 $ ^C
-(venv-pio) cze@XLDE-Reaction:~/reaction-proto-esp32 $ 
